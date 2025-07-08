@@ -96,16 +96,17 @@
       ctx.translate(width / 2, height / 2);
 
       let a = 2;
-      let b = 4;
+      let b = 5;
       let index = 0;
 
-      for (let t = 0; t < 20 * Math.PI; t += 0.25) {
+      for (let t = 0; t < 30 * Math.PI; t += 0.5) {
         let r = a + b * t;
-        let x = r * Math.cos(t + time * 0.003);
-        let y = r * Math.sin(t + time * 0.003);
+        let x = r * Math.cos(t + time * 0.002);
+        let y = r * Math.sin(t + time * 0.002);
 
         const node = nodes[index % nodes.length];
-        const alpha = 0.8 - (index * 0.01);
+        const alpha = 0.85 - (index * 0.012);
+
         ctx.fillStyle =
           node.type === "code" ? `rgba(76, 195, 247, ${alpha})` :
           node.type === "text" ? `rgba(255, 255, 255, ${alpha})` :
@@ -114,8 +115,9 @@
 
         ctx.font = "14px monospace";
         ctx.fillText(node.text, x, y);
+
         index++;
-        if (index > 50) break;
+        if (index > 60) break;
       }
 
       ctx.restore();
