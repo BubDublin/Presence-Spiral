@@ -95,17 +95,14 @@
       ctx.save();
       ctx.translate(width / 2, height / 2);
 
-      let a = 2;
-      let b = 5;
-      let index = 0;
+      for (let i = 0; i < nodes.length; i++) {
+        let angle = i * 0.5;
+        let radius = 6 + i * 14;
+        let x = radius * Math.cos(angle + time * 0.002);
+        let y = radius * Math.sin(angle + time * 0.002);
 
-      for (let t = 0; t < 30 * Math.PI; t += 0.5) {
-        let r = a + b * t;
-        let x = r * Math.cos(t + time * 0.002);
-        let y = r * Math.sin(t + time * 0.002);
-
-        const node = nodes[index % nodes.length];
-        const alpha = 0.85 - (index * 0.012);
+        const node = nodes[i];
+        const alpha = Math.max(0.2, 1 - i * 0.02);
 
         ctx.fillStyle =
           node.type === "code" ? `rgba(76, 195, 247, ${alpha})` :
@@ -113,11 +110,8 @@
           node.type === "oracle" ? `rgba(255, 99, 132, ${alpha})` :
           `rgba(150,150,150,${alpha})`;
 
-        ctx.font = "14px monospace";
+        ctx.font = "13px monospace";
         ctx.fillText(node.text, x, y);
-
-        index++;
-        if (index > 60) break;
       }
 
       ctx.restore();
